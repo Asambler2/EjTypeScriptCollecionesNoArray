@@ -48,7 +48,7 @@ if (mostrarMedia != null)
 function crearPersona() {
     let persona = new Persona(nombreSet.value, Number(edadSet.value));
     let sumaEdades = 0;
-    if (setPersonas.has(persona)) {
+    if (tienePersona(persona, setPersonas)) {
         alert('Persona duplicada');
     }
     else {
@@ -57,6 +57,14 @@ function crearPersona() {
     setPersonas.forEach((personas) => sumaEdades += personas.edad);
     if (mostrarMedia != null)
         mostrarMedia.innerHTML = `Persona creada: nombre: ${persona.nombre}, edad: ${persona.edad}, edad media personas creadas: ${Math.ceil(sumaEdades / setPersonas.size)}`;
+}
+function tienePersona(persona, setPersonas) {
+    for (let elemento of setPersonas.values()) {
+        if (persona.edad == elemento.edad && persona.nombre == elemento.nombre) {
+            return true;
+        }
+    }
+    return false;
 }
 if (enviarPersona != null)
     enviarPersona.addEventListener('click', crearPersona, false);
